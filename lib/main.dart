@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import './quiz.dart';
+import './resposta.dart';
 
 main() => runApp(QuizApp());
 
@@ -25,24 +26,13 @@ class _QuizAppState extends State<QuizApp> {
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Quiz'),
-        ),
+        appBar: AppBar(title: Text('Quiz'), centerTitle: true, foregroundColor: Colors.greenAccent),
         body: Column(
           children: <Widget>[
             Quiz(quiz[_perguntaSeleiconada]),
-            ElevatedButton(
-              onPressed: _respostas,
-              child: Text('Resposta 1'),
-            ),
-            ElevatedButton(
-              onPressed: _respostas,
-              child: Text('Resposta 2'),
-            ),
-            ElevatedButton(
-              onPressed: _respostas,
-              child: Text('Resposta 3'),
-            ),
+            resposta('resposta 1',_respostas),
+            resposta('resposta 2',_respostas),
+            resposta('resposta 3',_respostas),
           ],
         ),
       ),

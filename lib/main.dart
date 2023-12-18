@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, annotate_overrides, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import './quiz.dart';
 
 main() => runApp(QuizApp());
 
@@ -32,7 +33,7 @@ void _respostas(){
         ),
         body: Column(
           children: <Widget>[
-            Text(quiz[_perguntaSeleiconada]),
+            Quiz(quiz[_perguntaSeleiconada]),
             ElevatedButton(
              onPressed: _respostas,
              child: Text('Resposta 1')

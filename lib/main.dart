@@ -5,58 +5,52 @@ import './quiz.dart';
 
 main() => runApp(QuizApp());
 
-class _QuizAppState extends State<QuizApp>{
+class _QuizAppState extends State<QuizApp> {
+  var _perguntaSeleiconada = 0;
 
-var _perguntaSeleiconada = 0;
-    
-void _respostas(){
-  setState(() {
-    _perguntaSeleiconada++;
-  });
-      
-      print(_perguntaSeleiconada);
-    }
+  void _respostas() {
+    setState(() {
+      _perguntaSeleiconada++;
+    });
 
+    print(_perguntaSeleiconada);
+  }
 
-@override
-  Widget build(BuildContext context){
+  @override
+  Widget build(BuildContext context) {
     final quiz = [
       'Sua cor favorita?',
       'Qual sua idade?',
     ];
 
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Quiz')
+          title: Text('Quiz'),
         ),
         body: Column(
           children: <Widget>[
             Quiz(quiz[_perguntaSeleiconada]),
             ElevatedButton(
-             onPressed: _respostas,
-             child: Text('Resposta 1')
-             ),
-             ElevatedButton(
-             onPressed: _respostas,
-             child: Text('Resposta 2')
-             ),
-             ElevatedButton(
-             onPressed: _respostas,
-             child: Text('Resposta 3')
-             ),
+              onPressed: _respostas,
+              child: Text('Resposta 1'),
+            ),
+            ElevatedButton(
+              onPressed: _respostas,
+              child: Text('Resposta 2'),
+            ),
+            ElevatedButton(
+              onPressed: _respostas,
+              child: Text('Resposta 3'),
+            ),
           ],
         ),
       ),
-     );
+    );
   }
-
 }
 
-
-class QuizApp extends StatefulWidget{
-
+class QuizApp extends StatefulWidget {
   _QuizAppState createState() {
     return _QuizAppState();
   }

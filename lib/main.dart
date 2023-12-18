@@ -26,15 +26,22 @@ class _QuizAppState extends State<QuizApp> {
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text('Quiz'), centerTitle: true, foregroundColor: Colors.greenAccent),
+        appBar: AppBar(
+          title: Text('Quiz'),
+          centerTitle: true,
+          foregroundColor: Colors.greenAccent,
+          backgroundColor: Colors.pink,
+        ),
         body: Column(
           children: <Widget>[
             Quiz(quiz[_perguntaSeleiconada]),
-            resposta('resposta 1',_respostas),
-            resposta('resposta 2',_respostas),
-            resposta('resposta 3',_respostas),
+            resposta('resposta 1', _respostas),
+            resposta('resposta 2', _respostas),
+            resposta('resposta 3', _respostas),
           ],
+          mainAxisAlignment: MainAxisAlignment.center,
         ),
+        backgroundColor: Colors.black,
       ),
     );
   }

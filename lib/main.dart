@@ -1,56 +1,66 @@
-// ignore_for_file: prefer_const_constructors, annotate_overrides, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
-import './quiz.dart';
+import './questao.dart';
 import './resposta.dart';
 
-main() => runApp(QuizApp());
+void main() => runApp(PerguntaApp());
 
-class _QuizAppState extends State<QuizApp> {
-  var _perguntaSeleiconada = 0;
+class _PerguntaAppState extends State<PerguntaApp> {
+  var _perguntaSelecionada = 0;
+  final _perguntas = const [
+    {
+      'texto': 'Qual é a sua cor favorita?',
+      'respostas': ['Preto', 'Vermelho', 'Verde', 'Branco'],
+    },
+    {
+      'texto': 'Qual é o seu animal favorito?',
+      'respostas': ['Coelho', 'Cobra', 'Elefante', 'Leão'],
+    },
+    {
+      'texto': 'Qual é o seu instrutor favorito?',
+      'respostas': ['Maria', 'João', 'Leo', 'Pedro'],
+    },
+  ];
 
-  void _respostas() {
-    setState(() {
-      _perguntaSeleiconada++;
-    });
+  void _responder() {
+    if (temPerguntaSelecionada) {
+      setState(() {
+        _perguntaSelecionada++;
+      });
+    }
+  }
 
-    print(_perguntaSeleiconada);
+  bool get temPerguntaSelecionada {
+    return _perguntaSelecionada < _perguntas.length;
   }
 
   @override
   Widget build(BuildContext context) {
-    final quiz = [
-      {
-        'texto': 'Qual a sua cor favorita?',
-        'respostas': ['Verde', 'Preto', 'Azul', 'Roxo'],
-      },
-      {
-        'texto': 'Qual seu nome?',
-        'resposta': ['zezinho', 'joao', 'abigail'],
-      },
-      {'texto': 'Qual sua idade?',
-      'resposta': ['11', '25', '17'],},
-    ];
-    List <String> respostas = quiz[_perguntaSeleiconada].cast()['respostas'];
-    
+    List<String> respostas = temPerguntaSelecionada
+        ? _perguntas[_perguntaSelecionada]['respostas'] as List<String>
+        : [];
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text('Quiz'), centerTitle: true),
-        body: Column(
-          children: <Widget>[
-            Quiz(quiz[_perguntaSeleiconada]['texto'].toString()),
-            ...respostas.map((t) => resposta (t, _respostas)).toList(),
-          ],
-          mainAxisAlignment: MainAxisAlignment.center,
+        appBar: AppBar(
+          title: const Text('Perguntas'),
         ),
+        body: temPerguntaSelecionada
+            ? Column(
+                children: [
+                  Questao(_perguntas[_perguntaSelecionada]['texto'] as String),
+                  ...respostas.map((t) => Resposta(t, _responder)).toList(),
+                ],
+              )
+            : null,
       ),
     );
   }
 }
 
-class QuizApp extends StatefulWidget {
-  _QuizAppState createState() {
-    return _QuizAppState();
+class PerguntaApp extends StatefulWidget {
+
+  @override
+  _PerguntaAppState createState() {
+    return _PerguntaAppState();
   }
 }

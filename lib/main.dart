@@ -32,11 +32,7 @@ class _QuizAppState extends State<QuizApp> {
       'resposta': ['11', '25', '17'],},
     ];
     List <String> respostas = quiz[_perguntaSeleiconada].cast()['respostas'];
-    List<Widget> widgets = respostas.map((t) => resposta (t, _respostas)).toList();
-
-    /* for (var textoResp in respostas) {
-      widgets.add(resposta((textoResp), _respostas));
-    } */
+    
 
     return MaterialApp(
       home: Scaffold(
@@ -44,7 +40,7 @@ class _QuizAppState extends State<QuizApp> {
         body: Column(
           children: <Widget>[
             Quiz(quiz[_perguntaSeleiconada]['texto'].toString()),
-            ...widgets,
+            ...respostas.map((t) => resposta (t, _respostas)).toList(),
           ],
           mainAxisAlignment: MainAxisAlignment.center,
         ),

@@ -20,28 +20,34 @@ class _QuizAppState extends State<QuizApp> {
   @override
   Widget build(BuildContext context) {
     final quiz = [
-      'Sua cor favorita?',
-      'Qual sua idade?',
+      {
+        'texto': 'Qual a sua cor favorita?',
+        'respostas': ['Verde', 'Preto', 'Azul', 'Roxo'],
+      },
+      {
+        'texto': 'Qual seu nome?',
+        'resposta': ['zezinho', 'joao', 'abigail'],
+      },
+      {'texto': 'Qual sua idade?',
+      'resposta': ['11', '25', '17'],},
     ];
+    List <String> respostas = quiz[_perguntaSeleiconada].cast()['respostas'];
+    List<Widget> widgets = respostas.map((t) => resposta (t, _respostas)).toList();
+
+    /* for (var textoResp in respostas) {
+      widgets.add(resposta((textoResp), _respostas));
+    } */
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Quiz'),
-          centerTitle: true,
-          foregroundColor: Colors.greenAccent,
-          backgroundColor: Colors.pink,
-        ),
+        appBar: AppBar(title: Text('Quiz'), centerTitle: true),
         body: Column(
           children: <Widget>[
-            Quiz(quiz[_perguntaSeleiconada]),
-            resposta('resposta 1', _respostas),
-            resposta('resposta 2', _respostas),
-            resposta('resposta 3', _respostas),
+            Quiz(quiz[_perguntaSeleiconada]['texto'].toString()),
+            ...widgets,
           ],
           mainAxisAlignment: MainAxisAlignment.center,
         ),
-        backgroundColor: Colors.black,
       ),
     );
   }

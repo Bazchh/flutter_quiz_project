@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quiz_project/MudaScore.dart';
 import './Questionario.dart';
 import 'Resultado.dart';
 
@@ -37,13 +38,16 @@ class _PerguntaAppState extends State<PerguntaApp> {
     },
   ];
 
-  void _responder(int pontuacao) => temPerguntaSelecionada
-      ? setState(() {
-          _perguntaSelecionada++;
-          _score += pontuacao;
-        }
-        )
-      : null;
+  void _responder(int pontuacao) {
+    if (temPerguntaSelecionada) {
+      setState(() {
+        _perguntaSelecionada++;
+        _score+= pontuacao;
+      });
+        print(_score);
+    }
+    
+  }
 
   bool get temPerguntaSelecionada {
     return _perguntaSelecionada < _perguntas.length;
@@ -54,14 +58,24 @@ class _PerguntaAppState extends State<PerguntaApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Perguntas'),centerTitle: true,backgroundColor: Colors.blueAccent,
+          title: const Text('Perguntas'),
+          centerTitle: true,
+          backgroundColor: Colors.blueAccent,
         ),
-        body: (temPerguntaSelecionada
-            ? Questionario(
-                perguntas: _perguntas,
-                perguntaSelecionada: _perguntaSelecionada,
-                quandoResponder: _responder)
-            : const Resultado('Parabéns')),
+        body: Column(
+          children: [
+            temPerguntaSelecionada
+                ? Questionario(
+                    perguntas: _perguntas,
+                    perguntaSelecionada: _perguntaSelecionada,
+                    quandoResponder: _responder)
+                : Container(child: Resultado(_score),margin: EdgeInsets.only(top: 50.0),),
+            Container(
+               margin: const EdgeInsets.only(top: 170.0),
+              child: MudaScore(score: _score),
+            ),
+          ],
+        ),
       ),
     );
   }

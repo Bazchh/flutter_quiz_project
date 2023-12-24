@@ -42,11 +42,16 @@ class _PerguntaAppState extends State<PerguntaApp> {
     if (temPerguntaSelecionada) {
       setState(() {
         _perguntaSelecionada++;
-        _score+= pontuacao;
+        _score += pontuacao;
       });
-        print(_score);
     }
-    
+  }
+
+  void _reiniciarQuestionario(){
+    setState(() {
+      _perguntaSelecionada = 0;
+      _score = 0;
+    });
   }
 
   bool get temPerguntaSelecionada {
@@ -69,9 +74,12 @@ class _PerguntaAppState extends State<PerguntaApp> {
                     perguntas: _perguntas,
                     perguntaSelecionada: _perguntaSelecionada,
                     quandoResponder: _responder)
-                : Container(child: Resultado(_score),margin: EdgeInsets.only(top: 50.0),),
+                : Container(
+                    child: Resultado(_score,_reiniciarQuestionario),
+                    margin: EdgeInsets.only(top: 50.0),
+                  ),
             Container(
-               margin: const EdgeInsets.only(top: 170.0),
+              margin: const EdgeInsets.only(top: 170.0),
               child: MudaScore(score: _score),
             ),
           ],
